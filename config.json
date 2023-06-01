@@ -1,0 +1,37 @@
+{
+  "database": {
+    "host": "localhost",
+    "port": 3306,
+    "database": "hari2",
+    "username": "root",
+    "password": "root"
+  },
+  "tables": {
+    "transformation": [
+      {
+        "source_table": "Customers",
+        "source_column": ["first_name", "last_name"],
+        "target_column": "full_name",
+        "operation": "concat"
+      },
+      {
+        "source_table": "Orders",
+        "source_column": "order_date",
+        "target_column": ["year", "month", "day"],
+        "operation": "split_date",
+        "date_format": "%m-%d-%Y"
+      },
+      {
+        "source_table": "Customers",
+        "drop_columns": ["last_name"]
+      },
+      {
+        "source_table": "Customers",
+        "join_table": "Orders",
+        "join_type": "inner",
+        "join_column": "customer_id"
+      }
+    ]
+  },
+  "output_file": "denormalized_data.csv"
+}
